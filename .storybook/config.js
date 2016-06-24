@@ -1,2 +1,4 @@
 import { configure } from '@kadira/storybook';
-configure(()=>{}, module);
+configure(() => {
+  require('../stories/tweet');
+}, module);
