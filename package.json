@@ -25,7 +25,10 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "electron-builder": "^5.7.0",
-    "electron-prebuilt": "^1.2.5"
+    "electron-prebuilt": "^1.2.5",
+    "react-css-modules": "^3.7.6",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1"
   },
   "dependencies": {
     "react": "^15.1.0"
