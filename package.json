@@ -27,6 +27,7 @@
     "electron-builder": "^5.7.0",
     "electron-prebuilt": "^1.2.5",
     "react-css-modules": "^3.7.6",
+    "react-redux": "^4.4.5",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1"
   },
