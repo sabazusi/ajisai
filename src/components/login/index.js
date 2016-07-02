@@ -1,1 +1,1 @@
-import './Login';
+export default from './Login.jsx';
