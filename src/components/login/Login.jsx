@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './login.style.css';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -6,7 +7,7 @@ export default class Login extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className={styles.login}>
         Ajisai Login
         status: {this.props.isLoggedIn ? 'welcome' : 'login'}
       </div>
