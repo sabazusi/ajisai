@@ -1,7 +1,7 @@
 import {app} from 'electron';
-import {createLoginWindow} from './utils/app-windows';
+import {createInitialWindow} from './utils/app-windows';
 
 app.on('ready', () => {
   console.log('HELLO');
-  const window = createLoginWindow();
+  const window = createInitialWindow();
 });

@@ -1,6 +1,6 @@
 import {BrowserWindow} from 'electron';
 
-export const createLoginWindow = () => {
+export const createInitialWindow = () => {
   return new BrowserWindow({
     width    : 150,
     height   : 100,
