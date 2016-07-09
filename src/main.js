@@ -1,10 +1,14 @@
-import {app} from 'electron';
+import {app, ipcMain} from 'electron';
 import {PATHS} from './constants/local-files';
+import {IPC} from './constants/ipc';
 import {createInitialWindow} from './utils/app-windows';
 
 app.on('ready', () => {
-  console.log('HELLO');
+  // setup ipc handler
+  ipcMain.on(IPC.login, () => {
+    console.log('hello';
+  });
+
   const initialWindow = createInitialWindow();
-  console.log(PATHS);
-  //initialWindow.loadUrl();
+  initialWindow.loadUrl(PATHS.initialTemplate);
 });
