@@ -4,6 +4,7 @@ export const createInitialWindow = () => {
   return new BrowserWindow({
     width    : 150,
     height   : 100,
-    resizable: false
+    resizable: false,
+    show     : false
   });
 };
