@@ -6,9 +6,9 @@ import {createInitialWindow} from './utils/app-windows';
 app.on('ready', () => {
   // setup ipc handler
   ipcMain.on(IPC.login, () => {
-    console.log('hello';
+    console.log('hello');
   });
 
   const initialWindow = createInitialWindow();
-  initialWindow.loadUrl(PATHS.initialTemplate);
+  initialWindow.loadURL(PATHS.initialTemplate);
 });

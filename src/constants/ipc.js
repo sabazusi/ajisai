@@ -1,3 +1,3 @@
 export const IPC = {
-  login
+  login: 'login'
 }

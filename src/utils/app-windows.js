@@ -5,6 +5,6 @@ export const createInitialWindow = () => {
     width    : 150,
     height   : 100,
     resizable: false,
-    show     : false
+    show     : true
   });
 };
