@@ -1,3 +1,3 @@
 export const PATHS = {
-  initialTemplate: `file://${__dirname}/../templates/initial.html`
+  initialTemplate: `file://${__dirname}/../initial.html`
 };
