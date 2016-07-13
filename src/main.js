@@ -5,7 +5,8 @@ import {createInitialWindow} from './utils/app-windows';
 
 app.on('ready', () => {
   // setup ipc handler
-  ipcMain.on(IPC.login, () => {
+  ipcMain.on(IPC.login, (e, keys) => {
+    console.log(keys);
     console.log('hello');
   });
 
