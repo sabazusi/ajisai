@@ -5,7 +5,7 @@ import LocalStorage from './utils/local-storage';
 
 window.onload = () => {
   ipcRenderer.send(IPC.login, {
-    loginKey  : LocalStorage.get(KEYS.twitterAccessKeys, {}),
+    loginKeys : LocalStorage.get(KEYS.twitterAccessKeys, {}),
     windowSize: LocalStorage.get(KEYS.windowSize, {})
   });
 }
