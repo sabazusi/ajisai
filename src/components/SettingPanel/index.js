@@ -1,1 +1,1 @@
-export default from './SettingPanel.jsx';
+export default from './SettingPanel';

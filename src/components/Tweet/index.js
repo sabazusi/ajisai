@@ -1,1 +1,1 @@
-export default from './Tweet.jsx';
+export default from './Tweet';
