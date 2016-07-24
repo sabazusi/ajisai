@@ -1,8 +1,15 @@
 export default class Authenticator {
-  constructor() {
+  start(accessKeys) {
+    return accessKeys ? this.checkKeys(accessKeys) : this.getAccessToken();
   }
 
-  start(keys) {
+  checkKeys(accessKeys) {
+    return new Promise((resolve, reject) => {
+      resolve({});
+    });
+  }
+
+  getAccessToken() {
     return new Promise((resolve, reject) => {
       resolve({});
     });
