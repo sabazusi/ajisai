@@ -35,6 +35,7 @@
   "dependencies": {
     "dotenv": "^2.0.0",
     "keymirror": "^0.1.1",
+    "node-twitter-api": "^1.7.4",
     "react": "^15.1.0"
   }
 }
