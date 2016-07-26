@@ -1,3 +1,5 @@
+import TwitterClient from './clients/twitter-client';
+
 export default class Authenticator {
   start(accessKeys) {
     return accessKeys ? this.checkKeys(accessKeys) : this.getAccessToken();

@@ -1,6 +1,6 @@
 import twitterAPI from 'node-twitter-api';
 
-class TwitterClient {
+class TwitterClient() {
   constructor() {
     this.client = null;
   }
@@ -10,6 +10,19 @@ class TwitterClient {
       consumerKey,
       consumerSecret,
       callback
+    });
+  }
+
+  verify(accessToken, accessTokenSecret) {
+    return new Promise((resolve, reject) => {
+      this.getClient()
+        .verifyCredentials(accessToken, accessTokenSecret, (error, data, res) => {
+          if (error) {
+            reject("initialize failed");
+          } else {
+            resolve();
+          }
+        })
     });
   }
 
