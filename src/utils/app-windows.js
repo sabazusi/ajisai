@@ -8,3 +8,15 @@ export const createInitialWindow = () => {
     show     : true
   });
 };
+
+
+export const createAuthenticationWindow = () => {
+  return new BrowserWindow({
+    width             : 400,
+    height            : 500,
+    frame             : false,
+    resizable         : false,
+    'node-integration': false,
+    'always-on-top'   : true
+  });
+};
