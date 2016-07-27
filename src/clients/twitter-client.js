@@ -1,6 +1,6 @@
 import twitterAPI from 'node-twitter-api';
 
-class TwitterClient() {
+class TwitterClient {
   constructor() {
     this.client = null;
   }
@@ -24,6 +24,9 @@ class TwitterClient() {
           }
         })
     });
+  }
+
+  getAccessToken() {
   }
 
   getClient() {
