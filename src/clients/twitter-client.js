@@ -1,4 +1,5 @@
 import twitterAPI from 'node-twitter-api';
+import {createAuthenticationWindow} from '../utils/app-windows';
 
 class TwitterClient {
   constructor() {
@@ -27,9 +28,17 @@ class TwitterClient {
   }
 
   getAccessToken() {
-    this.getClient().getRequestToken((error, requestToken, requestTokenSecret) => {
-      let url = `${this.getClient().getAuthUrl(requestToken)}&force_login=true`;
-      console.log(url);
+    return new Promise((resolve, reject) => {
+      this.getClient().getRequestToken((error, requestToken, requestTokenSecret) => {
+        const authWindow = createAuthenticationWindow();
+        authWindow.webContents.on('will-navigate', (event, url) => {
+          console.log('うむ');
+          resolve();
+        });
+
+        let url = `${this.getClient().getAuthUrl(requestToken)}&force_login=true`;
+        authWindow.loadURL(url);
+      });
     });
   }
 
