@@ -27,6 +27,10 @@ class TwitterClient {
   }
 
   getAccessToken() {
+    this.getClient().getRequestToken((error, requestToken, requestTokenSecret) => {
+      let url = `${this.getClient().getAuthUrl(requestToken)}&force_login=true`;
+      console.log(url);
+    });
   }
 
   getClient() {
