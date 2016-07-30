@@ -21,7 +21,7 @@ class TwitterClient {
           if (error) {
             reject("initialize failed");
           } else {
-            resolve();
+            resolve(accessToken, accessTokenSecret);
           }
         })
     });

@@ -5,15 +5,28 @@ export default class Authenticator {
     return accessKeys ? this.checkKeys(accessKeys) : this.getAccessToken();
   }
 
-  checkKeys(accessKeys) {
-    return new Promise((resolve, reject) => {
-      resolve({});
+  checkKeys(keys) {
+    return TwitterClient.verify(
+      keys.accessToken,
+      keys.accessTokenSecret
+    ).then((accessToken, accessTokenSecret) => {
+      return {
+        accessToken,
+        accessTokenSecret
+      };
+    })
+    .catch(() => {
+      return this.getAccessToken();
     });
   }
 
   getAccessToken() {
-    return new Promise((resolve, reject) => {
-      resolve({});
-    });
+    return TwitterClient.getAccessToken()
+      .then((accessToken, accessTokenSecret) => {
+        return {
+          accessToken,
+          accessTokenSecret
+        };
+      })
   }
 }
