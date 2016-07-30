@@ -32,9 +32,9 @@ class TwitterClient {
       this.getClient().getRequestToken((error, requestToken, requestTokenSecret) => {
         const authWindow = createAuthenticationWindow();
         authWindow.webContents.on('will-navigate', (event, url) => {
-          const urlResult = url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/);
-          if (urlResult) {
-            this.getClient().getAccessToken(requestToken, requestTokenSecret, matched[2], (error, accessToken, accessTokenSecret) => {
+          const urlMatchResult = url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/);
+          if (urlMatchResult) {
+            this.getClient().getAccessToken(requestToken, requestTokenSecret, urlMatchResult[2], (error, accessToken, accessTokenSecret) => {
               if (!error) {
                 resolve(accessToken, accessTokenSecret);
               }
