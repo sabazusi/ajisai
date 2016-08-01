@@ -20,3 +20,13 @@ export const createAuthenticationWindow = () => {
     'always-on-top'   : true
   });
 };
+
+
+export const createMainWindow = (size) => {
+  return new BrowserWindow({
+    width    : size.width || 300,
+    height   : size.height || 500,
+    resizable: true,
+    show     : true
+  });
+};
