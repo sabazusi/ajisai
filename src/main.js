@@ -17,15 +17,17 @@ app.on('ready', () => {
     process.env.CALLBACK_URL
   );
 
+  const initialWindow = createInitialWindow();
+
   // setup ipc handler
   ipcMain.on(IPC.login, (e, keys) => {
     new Authenticator().start(keys)
       .then(verifiedKeys => {
+        initialWindow.hide();
         const mainWindow = createMainWindow({});
 //      mainWindow.loadURL();
       });
   });
 
-  const initialWindow = createInitialWindow();
   initialWindow.loadURL(PATHS.initialTemplate);
 });
