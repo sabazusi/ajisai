@@ -36,6 +36,7 @@ class TwitterClient {
           if (urlMatchResult) {
             this.getClient().getAccessToken(requestToken, requestTokenSecret, urlMatchResult[2], (error, accessToken, accessTokenSecret) => {
               if (!error) {
+                authWindow.close();
                 resolve(accessToken, accessTokenSecret);
               }
             });
