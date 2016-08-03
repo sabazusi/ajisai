@@ -23,9 +23,11 @@ app.on('ready', () => {
   ipcMain.on(IPC.login, (e, keys) => {
     new Authenticator().start(keys)
       .then(verifiedKeys => {
-        initialWindow.hide();
-        const mainWindow = createMainWindow({});
-//      mainWindow.loadURL();
+        setTimeout(() => {
+          initialWindow.hide();
+          const mainWindow = createMainWindow({});
+          //mainWindow.loadURL();
+        }, 1000);
       });
   });
 
