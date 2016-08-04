@@ -26,7 +26,7 @@ app.on('ready', () => {
         setTimeout(() => {
           initialWindow.hide();
           const mainWindow = createMainWindow({});
-          //mainWindow.loadURL();
+          mainWindow.loadURL(PATHS.mainTemplate);
         }, 1000);
       });
   });
