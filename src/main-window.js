@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Root from './components/Root';
 
 window.onload = () => {
-  ReactDOM.render(<div>hoge</div>, document.getElementById('root'));
+  ReactDOM.render(<Root onLoaded={() => {}} />, document.getElementById('root'));
 };
