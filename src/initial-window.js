@@ -12,4 +12,4 @@ window.onload = () => {
     windowSize: LocalStorage.get(KEYS.windowSize, {})
   });
   ReactDOM.render(<Login />, document.getElementById('root'));
-}
+};

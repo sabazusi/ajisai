@@ -1,3 +1,4 @@
 export const IPC = {
-  login: 'login'
+  login         : 'login',
+  mainPageLoaded: 'mainPageLoaded'
 }

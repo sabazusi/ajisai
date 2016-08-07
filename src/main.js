@@ -31,5 +31,9 @@ app.on('ready', () => {
       });
   });
 
+  ipcMain.on(IPC.mainPageLoaded, () => {
+    console.log('onLoaded');
+  });
+
   initialWindow.loadURL(PATHS.initialTemplate);
 });
