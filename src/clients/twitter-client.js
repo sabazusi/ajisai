@@ -4,6 +4,8 @@ import {createAuthenticationWindow} from '../utils/app-windows';
 class TwitterClient {
   constructor() {
     this.client = null;
+    this.accessToken = '';
+    this.accessTokenSecret = '';
   }
 
   initialize(consumerKey, consumerSecret, callback) {
@@ -36,6 +38,8 @@ class TwitterClient {
           if (urlMatchResult) {
             this.getClient().getAccessToken(requestToken, requestTokenSecret, urlMatchResult[2], (error, accessToken, accessTokenSecret) => {
               if (!error) {
+                this.accessToken = accessToken;
+                this.accessTokenSecret = accessTokenSecret;
                 resolve(accessToken, accessTokenSecret);
               }
             });
