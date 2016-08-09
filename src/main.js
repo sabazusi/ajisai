@@ -33,6 +33,7 @@ app.on('ready', () => {
 
   ipcMain.on(IPC.mainPageLoaded, () => {
     console.log('onLoaded');
+    TwitterClient.getTimeline();
   });
 
   initialWindow.loadURL(PATHS.initialTemplate);

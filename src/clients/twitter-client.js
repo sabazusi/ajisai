@@ -56,6 +56,20 @@ class TwitterClient {
     });
   }
 
+  getTimeline() {
+    this.getClient().getTimeline(
+      'user_timeline',
+      {
+        screen_name: 'example'
+      },
+      this.accessToken,
+      this.accessTokenSecret,
+      (error, data) => {
+        console.log(data);
+      }
+    );
+  }
+
   getClient() {
     if (this.client) {
       return this.client;
