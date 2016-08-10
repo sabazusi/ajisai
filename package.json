@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "storybook": "start-storybook -p 9001",
+    "copy": "gulp copy-assets",
     "build": "babel ./src -d ./dist && cp -r ./src/*.html ./dist",
     "start": "npm run build && electron ./dist/main.js"
   },
