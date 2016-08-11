@@ -23,35 +23,40 @@ class TwitterClient {
           if (error) {
             reject("initialize failed");
           } else {
-            resolve(accessToken, accessTokenSecret);
+            this.accessToken = accessToken;
+            this.accessTokenSecret = accessTokenSecret;
+            resolve();
           }
         })
     });
   }
 
-  getAccessToken() {
+  getRequestToken() {
     return new Promise((resolve, reject) => {
       this.getClient().getRequestToken((error, requestToken, requestTokenSecret) => {
-        const authWindow = createAuthenticationWindow();
-        authWindow.webContents.on('will-navigate', (event, url) => {
-          const urlMatchResult = url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/);
-          if (urlMatchResult) {
-            this.getClient().getAccessToken(requestToken, requestTokenSecret, urlMatchResult[2], (error, accessToken, accessTokenSecret) => {
-              if (!error) {
-                this.accessToken = accessToken;
-                this.accessTokenSecret = accessTokenSecret;
-                resolve(accessToken, accessTokenSecret);
-              }
-            });
-            event.preventDefault();
-            setImmediate(() => {
-              authWindow.close();
-            });
-          }
+        if (error) reject();
+        resolve({
+          requestToken,
+          requestTokenSecret
         });
+      })
+    });
+  }
 
-        let url = `${this.getClient().getAuthUrl(requestToken)}&force_login=true`;
-        authWindow.loadURL(url);
+  getAuthUrl(requestToken) {
+    return `${this.getClient().getAuthUrl(requestToken)}&force_login=true`;
+  }
+
+  getAccessToken(requestToken, requestTokenSecret, oauthVerifier) {
+    return new Promise((resolve, reject) => {
+      this.getClient().getAccessToken(requestToken, requestTokenSecret, oauthVerifier, (error, accessToken, accessTokenSecret) => {
+        if (!error) {
+          this.accessToken = accessToken;
+          this.accessTokenSecret = accessTokenSecret;
+          resolve(accessToken, accessTokenSecret);
+        } else {
+          reject();
+        }
       });
     });
   }
@@ -74,6 +79,8 @@ class TwitterClient {
     if (this.client) {
       return this.client;
     } else {
+      console.log(this.accessToken);
+      console.log(this.accessTokenSecret);
       throw new Error('Twitter Client has not initialized.');
     }
   }

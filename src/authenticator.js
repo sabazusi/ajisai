@@ -1,32 +1,16 @@
 import TwitterClient from './clients/twitter-client';
 
 export default class Authenticator {
-  start(accessKeys) {
-    return accessKeys ? this.checkKeys(accessKeys) : this.getAccessToken();
-  }
-
   checkKeys(keys) {
-    return TwitterClient.verify(
-      keys.accessToken,
-      keys.accessTokenSecret
-    ).then((accessToken, accessTokenSecret) => {
-      return {
-        accessToken,
-        accessTokenSecret
-      };
-    })
-    .catch(() => {
-      return this.getAccessToken();
+    return new Promise((resolve, reject) => {
+      if (!keys) reject();
+      TwitterClient.verify(
+        keys.accessToken,
+        keys.accessTokenSecret)
+      .then(() => resolve())
+      .catch((e) => {
+        reject();
+      });
     });
-  }
-
-  getAccessToken() {
-    return TwitterClient.getAccessToken()
-      .then((accessToken, accessTokenSecret) => {
-        return {
-          accessToken,
-          accessTokenSecret
-        };
-      })
   }
 }

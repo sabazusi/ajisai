@@ -1,4 +1,5 @@
 import React from 'react';
+import TwitterClient from '../../clients/twitter-client';
 
 export default class Root extends React.Component {
   componentDidMount() {
