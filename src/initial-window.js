@@ -32,6 +32,10 @@ window.onload = () => {
               oauthVerifier
             )
             .then((accessToken, accessTokenSecret) => {
+              LocalStorage.set(KEYS.twitterAccessKeys, {
+                accessToken,
+                accessTokenSecret
+              });
               ipcRenderer.send(IPC.loginSucceeded, savedWindowSize);
             })
             .catch((e) => {
