@@ -53,7 +53,7 @@ class TwitterClient {
         if (!error) {
           this.accessToken = accessToken;
           this.accessTokenSecret = accessTokenSecret;
-          resolve(accessToken, accessTokenSecret);
+          resolve({accessToken, accessTokenSecret});
         } else {
           reject();
         }

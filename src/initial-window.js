@@ -15,10 +15,10 @@ window.onload = () => {
     process.env.CALLBACK_URL
   );
 
-  const savedAccesKeys = LocalStorage.get(KEYS.twitterAccessKeys, {});
+  const savedAccessKeys = LocalStorage.get(KEYS.twitterAccessKeys, {});
   const savedWindowSize = LocalStorage.get(KEYS.windowSize, {});
 
-  new Authenticator().checkKeys()
+  new Authenticator().checkKeys(savedAccessKeys)
     .then(() => {
       ipcRenderer.send(IPC.loginSucceeded, savedWindowSize);
     })
@@ -31,10 +31,10 @@ window.onload = () => {
               tokens.requestTokenSecret,
               oauthVerifier
             )
-            .then((accessToken, accessTokenSecret) => {
+            .then((result) => {
               LocalStorage.set(KEYS.twitterAccessKeys, {
-                accessToken,
-                accessTokenSecret
+                accessToken      : result.accessToken,
+                accessTokenSecret: result.accessTokenSecret
               });
               ipcRenderer.send(IPC.loginSucceeded, savedWindowSize);
             })
