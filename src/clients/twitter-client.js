@@ -8,12 +8,14 @@ class TwitterClient {
     this.accessTokenSecret = '';
   }
 
-  initialize(consumerKey, consumerSecret, callback) {
+  initialize(consumerKey, consumerSecret, callback, accessToken, accessTokenSecret) {
     this.client = new twitterAPI({
       consumerKey,
       consumerSecret,
       callback
     });
+    this.accessToken = accessToken || '';
+    this.accessTokenSecret = accessTokenSecret || '';
   }
 
   verify(accessToken, accessTokenSecret) {
