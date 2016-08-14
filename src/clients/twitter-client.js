@@ -27,7 +27,7 @@ class TwitterClient {
           } else {
             this.accessToken = accessToken;
             this.accessTokenSecret = accessTokenSecret;
-            resolve(res);
+            resolve(data);
           }
         })
     });
@@ -81,8 +81,6 @@ class TwitterClient {
     if (this.client) {
       return this.client;
     } else {
-      console.log(this.accessToken);
-      console.log(this.accessTokenSecret);
       throw new Error('Twitter Client has not initialized.');
     }
   }

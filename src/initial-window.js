@@ -15,37 +15,87 @@ window.onload = () => {
     process.env.CALLBACK_URL
   );
 
-  const savedAccessKeys = LocalStorage.get(KEYS.twitterAccessKeys, {});
+  //// test -start
+  const savedUsers = LocalStorage.get(KEYS.verifiedAccounts, []);
   const savedWindowSize = LocalStorage.get(KEYS.windowSize, {});
 
-  new Authenticator().checkKeys(savedAccessKeys)
-    .then(() => {
-      ipcRenderer.send(IPC.loginSucceeded, savedWindowSize);
-    })
-    .catch(() => {
-      TwitterClient.getRequestToken()
-        .then((tokens) => {
-          ipcRenderer.on(IPC.authenticated, (e, oauthVerifier) => {
-            TwitterClient.getAccessToken(
-              tokens.requestToken,
-              tokens.requestTokenSecret,
-              oauthVerifier
-            )
-            .then((result) => {
-              LocalStorage.set(KEYS.twitterAccessKeys, {
-                accessToken      : result.accessToken,
-                accessTokenSecret: result.accessTokenSecret
-              });
-              ipcRenderer.send(IPC.loginSucceeded, savedWindowSize);
-            })
-            .catch((e) => {
-              throw e
-            });
+  Promise.all(savedUsers.map((userKeys) => verifyUser(userKeys)))
+    .then((verifyResult) => {
+      const verifiedUsers = verifyResult.filter((userInfo) => Number.isInteger(userInfo.id));
+      if (verifiedUsers.length > 0) {
+        if (verifiedUsers.length != savedUsers.length) {
+          const updatedSavedUsers = savedUsers.filter((userKeys) => {
+            return verifiedUsers.find((elm) => elm.id === userKeys.id) != undefined;
           });
-          ipcRenderer.send(IPC.openAuthWindow, TwitterClient.getAuthUrl(tokens.requestToken));
-        })
-        .catch(() => alert('Something happened in Twitter.'));
+          LocalStorage.set(KEYS.verifiedAccounts, updatedSavedUsers);
+          ReactDOM.render(
+            <Login
+              verifiedUsers={verifiedUsers}
+              onClickConfirmAccounts={onClickConfirmAccounts}
+            />, document.getElementById('root'));
+        }
+      } else {
+        // No verified accounts
+        getVerifiedAccount()
+          .then((verifiedUser) => {
+            LocalStorage.set(KEYS.verifiedAccounts, [{
+              id               : verifiedUser.id,
+              accessToken      : verifiedUser.accessToken,
+              accessTokenSecret: verifiedUser.accessTokenSecret
+            }]);
+            ReactDOM.render(
+              <Login
+                verifiedUsers={[verifiedUser]}
+                onClickConfirmAccounts={onClickConfirmAccounts}
+              />,
+            document.getElementById('root'));
+          })
+          .catch((e) => {
+            alert('不明なエラーが発生しました。アプリケーションを再起動してください。');
+          });
+      }
     });
-
+  //// test -end
   ReactDOM.render(<Login />, document.getElementById('root'));
+};
+
+const verifyUser = (userKeys) => {
+  return TwitterClient.verify(userKeys.accessToken, userKeys.accessTokenSecret)
+    .then((response) => {
+      return Object.assign(response, {
+        accessToken      : userKeys.accessToken,
+        accessTokenSecret: userKeys.accessTokenSecret
+      });
+    })
+    .catch((e) => {
+      return {};
+    });
+};
+
+const onClickConfirmAccounts = () => {
+  ipcRenderer.send(IPC.loginSucceeded, savedWindowSize);
+};
+
+const getVerifiedAccount = () => {
+  return new Promise((resolve, reject) => {
+    TwitterClient.getRequestToken()
+      .then((tokens) => {
+        ipcRenderer.on(IPC.authenticated, (e, oauthVerifier) => {
+          TwitterClient.getAccessToken(
+            tokens.requestToken,
+            tokens.requestTokenSecret,
+            oauthVerifier)
+          .then((result) => {
+            verifyUser(result)
+              .then((verifiedUser) => {
+                resolve(verifiedUser);
+              })
+              .catch((e) => {throw e;});
+          })
+          .catch((e) => reject(e));
+        });
+        ipcRenderer.send(IPC.openAuthWindow, TwitterClient.getAuthUrl(tokens.requestToken));
+      })
+      .catch((e) => reject(e));
+  });
 };
