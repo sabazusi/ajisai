@@ -27,7 +27,7 @@ class TwitterClient {
           } else {
             this.accessToken = accessToken;
             this.accessTokenSecret = accessTokenSecret;
-            resolve();
+            resolve(res);
           }
         })
     });
