@@ -17,7 +17,6 @@ window.onload = () => {
 
   //// test -start
   const savedUsers = LocalStorage.get(KEYS.verifiedAccounts, []);
-  const savedWindowSize = LocalStorage.get(KEYS.windowSize, {});
 
   Promise.all(savedUsers.map((userKeys) => verifyUser(userKeys)))
     .then((verifyResult) => {
@@ -28,12 +27,12 @@ window.onload = () => {
             return verifiedUsers.find((elm) => elm.id === userKeys.id) != undefined;
           });
           LocalStorage.set(KEYS.verifiedAccounts, updatedSavedUsers);
-          ReactDOM.render(
-            <Login
-              verifiedUsers={verifiedUsers}
-              onClickConfirmAccounts={onClickConfirmAccounts}
-            />, document.getElementById('root'));
         }
+        ReactDOM.render(
+          <Login
+            verifiedUsers={verifiedUsers}
+            onClickConfirmAccounts={onClickConfirmAccounts}
+          />, document.getElementById('root'));
       } else {
         // No verified accounts
         getVerifiedAccount()
@@ -72,8 +71,12 @@ const verifyUser = (userKeys) => {
     });
 };
 
+const getSavedWindowSize = () => {
+  return LocalStorage.get(KEYS.windowSize, {});
+}
+
 const onClickConfirmAccounts = () => {
-  ipcRenderer.send(IPC.loginSucceeded, savedWindowSize);
+  ipcRenderer.send(IPC.loginSucceeded, getSavedWindowSize());
 };
 
 const getVerifiedAccount = () => {
