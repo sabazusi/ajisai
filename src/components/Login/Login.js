@@ -19,7 +19,7 @@ export default class Login extends React.Component {
     return verifiedUsers.length > 0 ?
       verifiedUsers.map((user) => {
         return (
-          <div>
+          <div key={user.id}>
             <img src={user.profile_image_url} width={50} height={50} />
             {user.screen_name}
           </div>
