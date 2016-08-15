@@ -20,7 +20,7 @@ export default class Login extends React.Component {
       verifiedUsers.map((user) => {
         return (
           <div key={user.id}>
-            <img src={user.profile_image_url} width={50} height={50} />
+            <img src={user.profile_image_url} width={30} height={30} />
             {user.screen_name}
           </div>
         );
@@ -41,9 +41,11 @@ export default class Login extends React.Component {
   render() {
     return (
       <div className="login">
-        Ajisai Login
-        status: {this.getStatusLabel()}
-        {this.getConfirmButton()}
+        Ajisai
+        <div>
+          {this.getStatusLabel()}
+          {this.getConfirmButton()}
+        </div>
       </div>
     );
   }
