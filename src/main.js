@@ -15,11 +15,11 @@ app.on('ready', () => {
 
   // setup ipc handler
   ipcMain.on(IPC.loginSucceeded, (e, windowSize) => {
+    initialWindow.hide();
     setTimeout(() => {
-      initialWindow.hide();
       const mainWindow = createMainWindow(windowSize);
       mainWindow.loadURL(PATHS.mainTemplate);
-    }, 1000);
+    }, 300);
   });
   ipcMain.on(IPC.openAuthWindow, (e, authUrl) => {
     const authWindow = createAuthenticationWindow();
