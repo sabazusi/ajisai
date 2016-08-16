@@ -4,8 +4,6 @@ import {createAuthenticationWindow} from '../utils/app-windows';
 class TwitterClient {
   constructor() {
     this.client = null;
-    this.accessToken = '';
-    this.accessTokenSecret = '';
   }
 
   initialize(consumerKey, consumerSecret, callback, accessToken, accessTokenSecret) {
@@ -14,8 +12,6 @@ class TwitterClient {
       consumerSecret,
       callback
     });
-    this.accessToken = accessToken || '';
-    this.accessTokenSecret = accessTokenSecret || '';
   }
 
   verify(accessToken, accessTokenSecret) {
@@ -25,8 +21,6 @@ class TwitterClient {
           if (error) {
             reject("initialize failed");
           } else {
-            this.accessToken = accessToken;
-            this.accessTokenSecret = accessTokenSecret;
             resolve(data);
           }
         })
@@ -53,8 +47,6 @@ class TwitterClient {
     return new Promise((resolve, reject) => {
       this.getClient().getAccessToken(requestToken, requestTokenSecret, oauthVerifier, (error, accessToken, accessTokenSecret) => {
         if (!error) {
-          this.accessToken = accessToken;
-          this.accessTokenSecret = accessTokenSecret;
           resolve({accessToken, accessTokenSecret});
         } else {
           reject();
@@ -63,14 +55,14 @@ class TwitterClient {
     });
   }
 
-  getTimeline() {
+  getTimeline(screenName, accessToken, accessTokenSecret) {
     this.getClient().getTimeline(
       'user_timeline',
       {
-        screen_name: 'example'
+        screen_name: screenName
       },
-      this.accessToken,
-      this.accessTokenSecret,
+      accessToken,
+      accessTokenSecret,
       (error, data) => {
         console.log(data);
       }

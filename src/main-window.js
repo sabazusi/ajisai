@@ -13,12 +13,9 @@ window.onload = () => {
 };
 
 const loginToTwitter = () => {
-  const accessKeys = LocalStorage.get(KEYS.twitterAccessKeys, {});
   TwitterClient.initialize(
     process.env.CONSUMER_KEY,
     process.env.CONSUMER_SECRET,
-    process.env.CALLBACK_URL,
-    accessKeys.accessToken,
-    accessKeys.accessTokenSecret
+    process.env.CALLBACK_URL
   );
 };
