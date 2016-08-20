@@ -10,7 +10,7 @@ import LocalStorage from './utils/local-storage';
 import {configureStore} from './store/store';
 
 window.onload = () => {
-  loginToTwitter();
+  setupTwitter();
 
   const store = configureStore();
   ReactDOM.render(
@@ -20,7 +20,7 @@ window.onload = () => {
     , document.getElementById('root'));
 };
 
-const loginToTwitter = () => {
+const setupTwitter = () => {
   TwitterClient.initialize(
     process.env.CONSUMER_KEY,
     process.env.CONSUMER_SECRET,
