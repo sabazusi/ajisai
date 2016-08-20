@@ -15,7 +15,6 @@ window.onload = () => {
     process.env.CALLBACK_URL
   );
 
-  //// test -start
   const savedUsers = LocalStorage.get(KEYS.verifiedAccounts, []);
 
   Promise.all(savedUsers.map((userKeys) => verifyUser(userKeys)))
@@ -54,7 +53,6 @@ window.onload = () => {
           });
       }
     });
-  //// test -end
   ReactDOM.render(<Login />, document.getElementById('root'));
 };
 
