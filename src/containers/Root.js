@@ -4,20 +4,19 @@ import TwitterClient from '../clients/twitter-client';
 import * as Actions from '../actions';
 
 class Root extends React.Component {
-  constructor() {
-    super();
+  componentDidMount() {
+    this.startSubscribe();
+  }
+
+  startSubscribe() {
   }
 
   render() {
     return (
-      <div>abababa</div>
+      <div>loading....</div>
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {};
-};
 
 const mapDispatchToProps = (dispatch) => {
   return {
