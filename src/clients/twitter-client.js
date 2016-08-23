@@ -1,9 +1,11 @@
 import twitterAPI from 'node-twitter-api';
 import {createAuthenticationWindow} from '../utils/app-windows';
+import TwitterStreamAPISubscriber from './twitter-stream-api-subscriber';
 
 class TwitterClient {
   constructor() {
     this.client = null;
+    this.streamClient = null;
   }
 
   initialize(consumerKey, consumerSecret, callback, accessToken, accessTokenSecret) {
@@ -12,6 +14,7 @@ class TwitterClient {
       consumerSecret,
       callback
     });
+    this.streamClient = new TwitterStreamAPISubscriber(this.client);
   }
 
   verify(accessToken, accessTokenSecret) {
@@ -75,6 +78,10 @@ class TwitterClient {
     } else {
       throw new Error('Twitter Client has not initialized.');
     }
+  }
+
+  getUserStream() {
+    return this.streamClient.getUserStream();
   }
 }
 

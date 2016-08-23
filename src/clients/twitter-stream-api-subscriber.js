@@ -1,6 +1,7 @@
-class TwitterStreamAPISubscriber {
+export default class TwitterStreamAPISubscriber {
+  constructor(client) {
+    this.client = client;
+  }
   getUserStream() {
   }
 }
-
-export default new TwitterStreamAPISubscriber();
