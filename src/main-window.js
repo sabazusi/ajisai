@@ -12,10 +12,15 @@ import {configureStore} from './store/store';
 window.onload = () => {
   setupTwitter();
 
+  const users = LocalStorage.get(KEYS.verifiedAccounts, []);
+  if (users.length <= 0) throw new Error("Application Error");
+
   const store = configureStore();
   ReactDOM.render(
     <Provider store={store}>
-      <Root />
+      <Root
+        users={users}
+      />
     </Provider>
     , document.getElementById('root'));
 };

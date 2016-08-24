@@ -80,8 +80,8 @@ class TwitterClient {
     }
   }
 
-  getUserStream() {
-    return this.streamClient.getUserStream();
+  getUserStream(accessToken, accessTokenSecret, callback) {
+    return this.streamClient.getUserStream(accessToken, accessTokenSecret, callback);
   }
 }
 

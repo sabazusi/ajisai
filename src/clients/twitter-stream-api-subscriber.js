@@ -2,7 +2,7 @@ export default class TwitterStreamAPISubscriber {
   constructor(client) {
     this.client = client;
   }
-  getUserStream(callback, accessToken, accessTokenSecret) {
+  getUserStream(accessToken, accessTokenSecret, callback) {
     this.client.getStream('user', {}, accessToken, accessTokenSecret, callback);
   }
 }

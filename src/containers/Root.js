@@ -9,6 +9,17 @@ class Root extends React.Component {
   }
 
   startSubscribe() {
+    const {
+      getTweets,
+      users
+    } = this.props;
+    users.map((user) => {
+      TwitterClient.getUserStream(
+        user.accessToken,
+        user.accessTokenSecret, (error, parsed, message, response) => {
+          if (!error) getTweets(user, parsed);
+        });
+    })
   }
 
   render() {
@@ -17,6 +28,11 @@ class Root extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
