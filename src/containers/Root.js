@@ -17,7 +17,7 @@ class Root extends React.Component {
       TwitterClient.getUserStream(
         user.accessToken,
         user.accessTokenSecret, (error, parsed, message, response) => {
-          if (!error) getTweets(user, parsed);
+          if (!error && parsed.text) getTweets(user, parsed);
         });
     })
   }
@@ -31,13 +31,14 @@ class Root extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    tweets: state.tweets.tweets
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getTweets: (user, tweets) => {
-      dispatch(Actions.getTweets(user, tweets));
+      dispatch(Actions.getTweets(user.id, tweets));
     }
   };
 };
