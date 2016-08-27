@@ -1,17 +1,20 @@
 import twitterAPI from 'node-twitter-api';
 import {createAuthenticationWindow} from '../utils/app-windows';
+import TwitterStreamAPISubscriber from './twitter-stream-api-subscriber';
 
 class TwitterClient {
   constructor() {
     this.client = null;
+    this.streamClient = null;
   }
 
-  initialize(consumerKey, consumerSecret, callback) {
+  initialize(consumerKey, consumerSecret, callback, accessToken, accessTokenSecret) {
     this.client = new twitterAPI({
       consumerKey,
       consumerSecret,
       callback
     });
+    this.streamClient = new TwitterStreamAPISubscriber(this.client);
   }
 
   verify(accessToken, accessTokenSecret) {
@@ -21,35 +24,52 @@ class TwitterClient {
           if (error) {
             reject("initialize failed");
           } else {
-            resolve(accessToken, accessTokenSecret);
+            resolve(data);
           }
         })
     });
   }
 
-  getAccessToken() {
+  getRequestToken() {
     return new Promise((resolve, reject) => {
       this.getClient().getRequestToken((error, requestToken, requestTokenSecret) => {
-        const authWindow = createAuthenticationWindow();
-        authWindow.webContents.on('will-navigate', (event, url) => {
-          const urlMatchResult = url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/);
-          if (urlMatchResult) {
-            this.getClient().getAccessToken(requestToken, requestTokenSecret, urlMatchResult[2], (error, accessToken, accessTokenSecret) => {
-              if (!error) {
-                resolve(accessToken, accessTokenSecret);
-              }
-            });
-            event.preventDefault();
-            setImmediate(() => {
-              authWindow.close();
-            });
-          }
+        if (error) reject();
+        resolve({
+          requestToken,
+          requestTokenSecret
         });
+      })
+    });
+  }
 
-        let url = `${this.getClient().getAuthUrl(requestToken)}&force_login=true`;
-        authWindow.loadURL(url);
+  getAuthUrl(requestToken) {
+    return `${this.getClient().getAuthUrl(requestToken)}&force_login=true`;
+  }
+
+  getAccessToken(requestToken, requestTokenSecret, oauthVerifier) {
+    return new Promise((resolve, reject) => {
+      this.getClient().getAccessToken(requestToken, requestTokenSecret, oauthVerifier, (error, accessToken, accessTokenSecret) => {
+        if (!error) {
+          resolve({accessToken, accessTokenSecret});
+        } else {
+          reject();
+        }
       });
     });
+  }
+
+  getTimeline(screenName, accessToken, accessTokenSecret) {
+    this.getClient().getTimeline(
+      'user_timeline',
+      {
+        screen_name: screenName
+      },
+      accessToken,
+      accessTokenSecret,
+      (error, data) => {
+        console.log(data);
+      }
+    );
   }
 
   getClient() {
@@ -58,6 +78,10 @@ class TwitterClient {
     } else {
       throw new Error('Twitter Client has not initialized.');
     }
+  }
+
+  getUserStream(accessToken, accessTokenSecret, callback) {
+    return this.streamClient.getUserStream(accessToken, accessTokenSecret, callback);
   }
 }
 

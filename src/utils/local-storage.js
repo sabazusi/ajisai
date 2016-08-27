@@ -1,11 +1,19 @@
 class LocalStorage {
   get(key, defaultValue = undefined) {
-    const value = localStorage.getItem(key);
+    const value = localStorage.getItem(this._createAjisaiKeyName(key));
     if (value === undefined || value === null) {
       return defaultValue;
     } else {
-      return value;
+      return JSON.parse(value);
     }
+  }
+  set(key, value) {
+    if (key && value != undefined) {
+      localStorage.setItem(this._createAjisaiKeyName(key), JSON.stringify(value));
+    }
+  }
+  _createAjisaiKeyName(key) {
+    return `ajisai.${key}`;
   }
 }
 
