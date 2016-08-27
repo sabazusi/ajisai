@@ -23,7 +23,11 @@ class Root extends React.Component {
   }
 
   render() {
-    return (
+    const tweets = this.props.tweets;
+    const firstUserId = Object.keys(tweets)[0];
+    const tweetsDOM = firstUserId ? tweets[firstUserId].map((tweet) => (<div>{tweet.text}</div>))
+      : null;
+    return tweetsDOM ? (<div>{tweetsDOM}</div>) : (
       <div>loading....</div>
     );
   }
