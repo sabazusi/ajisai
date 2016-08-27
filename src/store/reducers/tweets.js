@@ -4,7 +4,7 @@ const initialState = {
   tweets: {}
 };
 
-export const tweets = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch(action.type) {
     case ActionType.GET_TWEETS:
       const tweets = Object.assign({}, state.tweets);
