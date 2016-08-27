@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
       const tweets = Object.assign({}, state.tweets);
       let targetUserTweets =
         tweets[action.userId] || [];
-      targetUserTweets.push(action.tweets);
+      targetUserTweets.concat(action.tweets);
 
       tweets[action.userId] = targetUserTweets;
       return Object.assign({}, state, {
