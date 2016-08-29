@@ -11,6 +11,7 @@ class Root extends React.Component {
   startSubscribe() {
     const {
       getTweets,
+      getUserStreamTweet,
       users
     } = this.props;
     users.map((user) => {
@@ -23,7 +24,7 @@ class Root extends React.Component {
       TwitterClient.getUserStream(
         user.accessToken,
         user.accessTokenSecret, (error, parsed, message, response) => {
-          if (!error && parsed.text) getTweets(user, parsed);
+          if (!error && parsed.text) getUserStreamTweet(user, parsed);
         });
     })
   }
@@ -49,6 +50,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getTweets: (user, tweets) => {
       dispatch(Actions.getTweets(user.id, tweets));
+    },
+    getUserStreamTweet: (user, tweet) => {
+      dispatch(Actions.getUserStreamTweet(user.id, tweet));
     }
   };
 };

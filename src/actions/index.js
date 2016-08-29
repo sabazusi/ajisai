@@ -7,3 +7,11 @@ export const getTweets = (userId, tweets) => {
     tweets
   }
 };
+
+export const getUserStreamTweet = (userId, tweet) => {
+  return {
+    type: ActionType.GET_USERSTREAM_TWEET,
+    userId,
+    tweet
+  }
+};
