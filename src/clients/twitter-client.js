@@ -62,7 +62,7 @@ class TwitterClient {
     return new Promise((resolve, reject) => {
       this.getClient().getTimeline(
         'home_timeline',
-        {},
+        {count: 50},
         accessToken,
         accessTokenSecret,
         (error, data) => {

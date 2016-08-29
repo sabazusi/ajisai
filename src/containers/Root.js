@@ -14,7 +14,6 @@ class Root extends React.Component {
       users
     } = this.props;
     users.map((user) => {
-      console.log(user);
       TwitterClient.getHomeTimeline(
         user.accessToken,
         user.accessTokenSecret
