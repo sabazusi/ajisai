@@ -6,7 +6,6 @@ export default class extends React.Component {
       screenName,
       text
     } = this.props;
-    console.log('hai');
 
     return (
       <div>
