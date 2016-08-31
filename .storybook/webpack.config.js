@@ -8,6 +8,11 @@ module.exports = {
         test: /\.css$/,
         loader: "style!css",
         include: path.resolve(__dirname, '../', 'src')
+      },
+      {
+        test: /\.png$/,
+        loader: "url-loader",
+        query: { mimetype: "image/png" }
       }
     ]
   }
