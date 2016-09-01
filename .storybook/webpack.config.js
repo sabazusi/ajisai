@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 
+console.log(path.resolve(__dirname, '../', 'resources', 'images'));
 module.exports = {
   module: {
     loaders: [
@@ -12,7 +13,7 @@ module.exports = {
       {
         test: /\.png$/,
         loader: "url-loader",
-        query: { mimetype: "image/png" }
+        include: path.resolve(__dirname, '../', 'resources', 'images')
       }
     ]
   }

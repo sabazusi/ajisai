@@ -22,7 +22,7 @@ export default class extends React.Component {
   render() {
     return (
       <div className="container">
-        <img src="../../../resources/images/sample1.png" />
+        <img src="http://dummyimage.com/64/000/fff" />
         <div className="tabs">
           {this.getTabsDom()}
         </div>
