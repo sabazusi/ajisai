@@ -40,9 +40,9 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div className="login">
+      <div className="Login">
         Ajisai
-        <div>
+        <div className="container">
           {this.getStatusLabel()}
           {this.getConfirmButton()}
         </div>

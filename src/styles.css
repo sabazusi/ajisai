@@ -1,3 +1,9 @@
-.login {
+/* TODO: use css-modules */
+
+/* Login */
+.Login {
   color: #f00;
+}
+.Login > .container {
+  color: #0f0;
 }
