@@ -6,4 +6,6 @@
 }
 .Login > .container {
   color: #0f0;
+  display: flex;
+  justify-content: flex-start;
 }
