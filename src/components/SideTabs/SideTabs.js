@@ -1,6 +1,10 @@
 import React from 'react';
 
 export default class extends React.Component {
+  static propTypes = {
+    items: React.PropTypes.object.isRequired
+  };
+
   constructor() {
     super();
 
