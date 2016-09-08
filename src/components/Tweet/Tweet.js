@@ -8,7 +8,7 @@ export default class extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="Tweet">
         {screenName}: {text}
       </div>
     );
