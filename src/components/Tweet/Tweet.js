@@ -9,7 +9,7 @@ export default class extends React.Component {
 
     return (
       <div className="Tweet">
-        {screenName}: {text}
+        <span className="screenName">{screenName}</span>: {text}
       </div>
     );
   }

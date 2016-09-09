@@ -17,3 +17,6 @@
   border: solid 1px #000;
   border-radius: 3px;
 }
+.Tweet > .screenName {
+  font-weight: bold;
+}
