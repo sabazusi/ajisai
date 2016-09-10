@@ -19,8 +19,11 @@ export default class Login extends React.Component {
     return verifiedUsers.length > 0 ?
       verifiedUsers.map((user) => {
         return (
-          <div key={user.id}>
-            <img src={user.profile_image_url} width={30} height={30} />
+          <div key={user.id} className="verifiedUser">
+            <img
+              src={user.profile_image_url}
+              className="userImage"
+            />
             {user.screen_name}
           </div>
         );
@@ -30,11 +33,14 @@ export default class Login extends React.Component {
   getConfirmButton() {
     return this.props.verifiedUsers.length > 0 ?
       (
-        <button
-          onClick={::this.props.onClickConfirmAccounts}
-        >
-          OK
-        </button>
+        <div className="buttonContainer">
+          <button
+            className="okButton"
+            onClick={::this.props.onClickConfirmAccounts}
+          >
+            OK
+          </button>
+        </div>
       ) : null;
   }
 

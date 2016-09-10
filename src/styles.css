@@ -2,12 +2,34 @@
 
 /* Login */
 .Login {
-  color: #f00;
+  font-weight: bold;
 }
 .Login > .container {
-  color: #0f0;
+  font-weight: normal;
+}
+.Login > .container > .verifiedUser {
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
+}
+.Login > .container > .verifiedUser > .userImage {
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+}
+.Login > .container > .buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+.Login > .container > div > .okButton {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  width: 30px;
+  height: 20px;
 }
 
 
