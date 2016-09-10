@@ -1,3 +1,44 @@
-.login {
-  color: #f00;
+/* TODO: use css-modules */
+
+/* Login */
+.Login {
+  font-weight: bold;
+}
+.Login > .container {
+  font-weight: normal;
+}
+.Login > .container > .verifiedUser {
+  display: flex;
+  align-items: center;
+}
+.Login > .container > .verifiedUser > .userImage {
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+}
+.Login > .container > .buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+.Login > .container > div > .okButton {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  width: 30px;
+  height: 20px;
+}
+
+
+/* Tweet */
+.Tweet {
+  background-color: #888;
+  border: solid 1px #000;
+  border-radius: 3px;
+}
+.Tweet > .screenName {
+  font-weight: bold;
 }

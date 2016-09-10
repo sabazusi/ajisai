@@ -58,18 +58,19 @@ class TwitterClient {
     });
   }
 
-  getTimeline(screenName, accessToken, accessTokenSecret) {
-    this.getClient().getTimeline(
-      'user_timeline',
-      {
-        screen_name: screenName
-      },
-      accessToken,
-      accessTokenSecret,
-      (error, data) => {
-        console.log(data);
-      }
-    );
+  getHomeTimeline(accessToken, accessTokenSecret) {
+    return new Promise((resolve, reject) => {
+      this.getClient().getTimeline(
+        'home_timeline',
+        {count: 50},
+        accessToken,
+        accessTokenSecret,
+        (error, data) => {
+          if (error) reject(error);
+          resolve(data)
+        }
+      );
+    });
   }
 
   getClient() {

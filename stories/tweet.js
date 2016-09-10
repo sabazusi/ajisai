@@ -4,5 +4,8 @@ import Tweet from '../src/components/Tweet';
 
 storiesOf('Tweet', module)
   .add('only text', () => (
-    <Tweet />
+    <Tweet
+      screenName="screenName"
+      text="TweetBody"
+    />
   ));

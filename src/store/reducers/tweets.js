@@ -5,13 +5,24 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  let targetUserTweets;
+  const tweets = Object.assign({}, state.tweets);
+
   switch(action.type) {
     case ActionType.GET_TWEETS:
-      const tweets = Object.assign({}, state.tweets);
-      let targetUserTweets =
+      targetUserTweets =
         tweets[action.userId] || [];
-      targetUserTweets.push(action.tweets);
+      targetUserTweets = targetUserTweets.concat(action.tweets);
 
+      tweets[action.userId] = targetUserTweets;
+      return Object.assign({}, state, {
+        tweets
+      });
+
+    case ActionType.GET_USERSTREAM_TWEET:
+      targetUserTweets =
+        tweets[action.userId] || [];
+      targetUserTweets.unshift(action.tweet);
       tweets[action.userId] = targetUserTweets;
       return Object.assign({}, state, {
         tweets
